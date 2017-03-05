@@ -1,7 +1,5 @@
 <?php
 
-use PDO;
-
 /**
  * Description of AdresseManager
  *
@@ -34,11 +32,12 @@ class AdresseManager {
 
     public function updateAddress(Adresse $adresse) {
         $stmt = $this->connexion->prepare("UPDATE adresses
-                SET rue = :rue,
+                SET id = :id,rue = :rue,
                 numero = :numero,
                 codepostal = :codepostal,
                 localite = :localite,
-                pays = :pays");
+                pays = :pays WHERE id = :id");
+        $stmt->bindValue(':id', $adresse->getId());
         $stmt->bindValue(':rue', $adresse->getRue());
         $stmt->bindValue(':numero', $adresse->getNumero());
         $stmt->bindValue(':codepostal', $adresse->getCodePostal());
@@ -47,10 +46,9 @@ class AdresseManager {
         $stmt->execute();
     }
 
-    public function readAddress($id) {
-        $idd = (int) $id;
-        $stmt = $this->connexion->prepare('SELECT * FROM adresses WHERE id = ' . $idd);
-        $stmt->bindValue(':id', id);
+    public function readAddress(Adresse $adresse) {
+        $stmt = $this->connexion->prepare("SELECT * FROM adresses WHERE id = :id");
+        $stmt->bindValue(':id', $adresse->getId());
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         var_dump($result);
@@ -66,11 +64,9 @@ class AdresseManager {
     }
 
     public function deleteAddress(Adresse $adresse) {
-      
-        $this->connexion->exec('DELETE FROM adresses WHERE id = ' . $adresse->getId());
-     
-      //  $this->execute();
-        echo 'the ' . $adresse->getId() . ' record has been deleted !';
+
+        $this->connexion->exec("DELETE FROM adresses WHERE id =" . $adresse->getId());
+
         return;
     }
 
@@ -81,7 +77,6 @@ class AdresseManager {
                 $this->$nomMethode($val);
                 echo $nomMethode . '<br/>';
             }
-            // echo $key . ' ' . $val . "<br/>";
         }
         return;
     }

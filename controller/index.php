@@ -1,7 +1,5 @@
 <?php
 
-use PDO;
-
 require __DIR__ . '/Adresse.php';
 require __DIR__ . '/AdresseManager.php';
 echo 'debut' . '</br>';
@@ -48,19 +46,17 @@ try {
     $adresse4->setNumero(20);
     $adresse4->setLocalite('NAMUR');
     $adresse4->setCodePostal(5000);
-    $adresse4->setPays('Belgique');
+    $adresse4->setPays('Belgique'); 
     echo 'je suis bê..';
 
     /* ======== insert an address into the table ====== */
 
-    $adresseManager->createAddress($adresse2);
+ //   $adresseManager->createAddress($adresse0);
 
     /* ======== read an address if a given ID ======== */
 
-    $foundAd = $adresseManager->readAddress(25);
-    foreach ($foundAd as $ad => $value) {
-        echo $ad . ' ' . $value . "</br";
-    }
+    $data = $adresseManager->readAddress($adresse0);
+    echo $data . 'rien trouve !' . '</br>';
 
     /* ======== find all the addresses ================ */
 
@@ -68,11 +64,11 @@ try {
 
     /* ======== update one addresse of a given ID ===== */
 
-    $adresseManager->updateAddress(13);
+   // $adresseManager->updateAddress($adresse0);
 
     /* ======== delete one addresse of a given ID ===== */
 
-    $adresseManager->deleteAddress($adresse3);
+    $adresseManager->deleteAddress($adresse0);
 
     
 } catch (\PDOException $e) {

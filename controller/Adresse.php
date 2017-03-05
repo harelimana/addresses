@@ -14,32 +14,35 @@ class Adresse {
     private $localite;
     private $pays;
 
-/* ===== constructor ====== */
-    
-    function __construct($data) {
-        $this->hydrate($data);
-        
-        /* the following assignation has been replaced by the hydatation 
-        $this->id = $id;
-        $this->rue = $rue;
-        $this->numero = $numero;
-        $this->localite = $localite;
-        $this->codePostal = $codePostal;
-        $this->pays = $pays; */
+    /* ===== constructor ====== */
+
+    function __construct(array $data = null) {
+        if (!$data == null) {
+            $this->hydrate($data);
+        }
+
+        /* the following assignation has been replaced by the hydratation 
+          $this->id = $id;
+          $this->rue = $rue;
+          $this->numero = $numero;
+          $this->localite = $localite;
+          $this->codePostal = $codePostal;
+          $this->pays = $pays; */
     }
-    
-/* ==== the function of auto-hydratation of the Class Adresse  ===== */
-    
-    public function hydrate($data) {
-        foreach ($data as $key =>$value){
+
+    /* ==== the function of auto-hydratation of the Class Adresse  ===== */
+
+    public function hydrate(array $data) {
+        foreach ($data as $key => $value) {
             $methodName = 'set' . ucfirst($this->$key);
-            if(method_exists($this, $methodName)){
+            if (method_exists($this, $methodName)) {
                 $this->$methodName($value);
             }
         }
     }
-/* ====== setters ============= */
-    
+
+    /* ====== setters ============= */
+
     function setId($id) {
         $this->id = $id;
     }
@@ -63,8 +66,9 @@ class Adresse {
     function setPays($pays) {
         $this->pays = $pays;
     }
-/* ==== getters ======== */
-    
+
+    /* ==== getters ======== */
+
     function getId() {
         return $this->id;
     }
@@ -90,12 +94,13 @@ class Adresse {
     }
 
     public function __toString() {
-        return sprintf('%$ %$ %$', $this->id, $this->rue, $this->numero, $this->codePostal, $this->localite, $this->pays);
+         return sprintf(/*'%d %$ %d %s %d %s',*/$this->id,$this->rue,$this->numero,$this->localite,$this->codePostal,$this->pays);
     }
 
-    public function invalidAddress(){
-       if (getRue().length < 0){
-          return empty(getRue()); 
-       }
+    public function invalidAddress() {
+        if ($this->getRue() == 0) {
+            return empty($this->getRue());
+        }
     }
+
 }
