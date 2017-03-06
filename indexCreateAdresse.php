@@ -35,8 +35,8 @@ if (isset($_POST['submit']) && isset($_POST['rue'])) {
     <body
 <center >
     <h1 class="h1 small">Ajout d'adresse</h1></br>
-    <form action=" " method="POST" class="form-control">
-        <label for="rue">RUE</label><input type="text" name="rue" id="name"/></br>
+    <form action=" " method="POST" class="form-inline form-control .input-group-addon .label-primary">
+        <label for="rue">rue</label><input type="text" name="rue" id="name"/></br>
         <label for="numeroRue">numero rue</label><input type="text" name="numero" id="numero"/></br>
         <label for="localite">localite</label><input type="text" name="localite" id="localite"/></br>
         <label for="codepostal">code postal</label><input type="text" name="codepostal" id="codepostal"/></br>
