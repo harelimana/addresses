@@ -51,16 +51,18 @@ class AdresseManager {
         $stmt->bindValue(':id', $adresse->getId());
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
-        return $result;
+        $data = new Adresse($result);
+        // var_dump($result);
+        return $data;
     }
 
     public function retrieveAll() {
-        $stmt = $this->connexion->query('SELECT * FROM adresses');
+        $stmt = $this->connexion->query('SELECT * FROM adresses ORDER BY rue');
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($result);
-        return $result;
+        $data = new Adresse($result);
+       // var_dump($result);
+        return $data;
     }
 
     public function deleteAddress(Adresse $adresse) {

@@ -21,7 +21,7 @@ class Adresse {
             $this->hydrate($data);
         }
 
-        /* the following assignation has been replaced by the hydratation 
+        /* the following assignation (irrespective of the encapsulation) has been replaced by the hydratation 
           $this->id = $id;
           $this->rue = $rue;
           $this->numero = $numero;
@@ -94,7 +94,15 @@ class Adresse {
     }
 
     public function __toString() {
-         return sprintf(/*'%d %$ %d %s %d %s',*/$this->id,$this->rue,$this->numero,$this->localite,$this->codePostal,$this->pays);
+        return sprintf(/* '%d %$ %d %s %d %s', */$this->id, $this->rue, $this->numero, $this->localite, $this->codePostal, $this->pays);
+    }
+
+    public function afficher() {
+        $this->getId();
+        $this->getRue();
+        $this->getLocalite();
+        $this->getCodePostal();
+        $this->getPays();
     }
 
     public function invalidAddress() {
