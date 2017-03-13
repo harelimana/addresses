@@ -20,9 +20,8 @@ if (isset($_POST['submit'])) {
 
     /* tests of invalid adresse  will be here */
 
-    $result = $adresseManager->retrieveAll($adresse);
+    $result = $adresseManager->retrieveAll();
     
-    $adresseManager->hydrate($result);
     echo "<pre>";
     $adresse->__toString($adresse->getId(), $adresse->getRue(), 
             $adresse->getNumero(), $adresse->getLocalite(), $adresse->getCodePostal(), $adresse->getPays());

@@ -20,14 +20,6 @@ class Adresse {
         if (!$data == null) {
             $this->hydrate($data);
         }
-
-        /* the following assignation (irrespective of the encapsulation) has been replaced by the hydratation 
-          $this->id = $id;
-          $this->rue = $rue;
-          $this->numero = $numero;
-          $this->localite = $localite;
-          $this->codePostal = $codePostal;
-          $this->pays = $pays; */
     }
 
     /* ==== the function of auto-hydratation of the Class Adresse  ===== */

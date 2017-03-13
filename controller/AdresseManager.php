@@ -46,22 +46,28 @@ class AdresseManager {
         $stmt->execute();
     }
 
-    public function readAddress(Adresse $adresse) {
+    public function readAddress($id = null) {
+        $data = [];
         $stmt = $this->connexion->prepare("SELECT * FROM adresses WHERE id = :id");
-        $stmt->bindValue(':id', $adresse->getId());
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $data = new Adresse($result);
-        // var_dump($result);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute(array(':id' => $id));
+        
+        while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $data = new Adresse($result);
+        }
+        
         return $data;
     }
 
     public function retrieveAll() {
+        $data = [];
         $stmt = $this->connexion->query('SELECT * FROM adresses ORDER BY rue');
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $data = new Adresse($result);
-       // var_dump($result);
+        
+        while ($result = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
+            $data = new Adresse($result);
+        }
+        
         return $data;
     }
 
@@ -69,17 +75,6 @@ class AdresseManager {
 
         $this->connexion->exec("DELETE FROM adresses WHERE id =" . $adresse->getId());
 
-        return;
-    }
-
-    public function hydrate(array $adresse) {
-        foreach ($adresse as $key => $val) { // ceci permet de destructurer
-            $nomMethode = 'set' . ucfirst($key);
-            if (method_exists($this, $nomMethode)) {
-                $this->$nomMethode($val);
-                echo $nomMethode . '<br/>';
-            }
-        }
         return;
     }
 
